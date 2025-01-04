@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testapp-deployment
+  labels:
+    app: testapp
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testapp
+  template:
+    metadata:
+      labels:
+        app: testapp
+    spec:
+      containers:
+      - name: testapp
+        image: shestera/scaletestapp
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "1.0"
+            memory: "30Mi"
+          limits:
+            cpu: "1.0"
+            memory: "30Mi"

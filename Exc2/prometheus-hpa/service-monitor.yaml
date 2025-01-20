@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaletestapp-app-sm
+  namespace: default
+  labels:
+    serviceMonitorSelector: prometheus
+spec:
+  endpoints:
+    - interval: 15s
+      port: testapp
+      scrapeTimeout: 14s
+      path: /metrics
+    # - interval: 10s
+    #   targetPort: 8080
+    #   path: /metrics
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: testapp
+      app.kubernetes.io/name: testapp
+      k8s-app: testapp
